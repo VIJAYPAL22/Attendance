@@ -1,0 +1,37 @@
+{% extends "base.html"%}
+{% block title %} Announcements {% endblock%}
+{%block heading%} 
+Announcements 
+{%  endblock %}
+{% block content %} 
+<div class="main-content" style="margin: 40px 40px 0px -20px; border-radius: 20px; "</div>
+        <div class="card shadow</div>-lg">
+            <div class="card-header text</div>-center">
+                <h2 class="mb-0"><i class="fas fa-bullhorn"></i> Send Announcement <span style="font-size:1.2rem;">📢</span></h2>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="/Announcements">
+                    <div class="mb-3">
+                        <label for="department" class="form-label"><i class="fas fa-building"></i> Select Department</label>
+                        <select class="form-select" name="department" id="department" required>
+                            <option value="all">🌐 All Departments</option>
+                            {% for department in departments %}
+                                <option value="{{ department }}">{{ department }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label"><i class="fas fa-comment-dots"></i> Announcement Message</label>
+                        <textarea class="form-control" id="message" name="message" rows="4" required placeholder="Type your announcement here..."></textarea>
+                    </div>
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-paper-plane"></i> Send Announcement
+                        </button>
+                        
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{%  endblock %}

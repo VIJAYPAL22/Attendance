@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HRM System Portal</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.5/dist/cosmo/bootstrap.min.css">
+  <style>
+    .hero-section {
+      background: linear-gradient(135deg, #6e8efb, #a777e3);
+      color: white;
+      padding: 5rem 0;
+      border-radius: 0 0 20px 20px;
+      margin-bottom: 3rem;
+    }
+    .app-download-btn {
+      background-color: #fff;
+      color: #6e8efb;
+      border: none;
+      padding: 12px 30px;
+      font-size: 1.2rem;
+      border-radius: 50px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: all 0.3s;
+    }
+    .app-download-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    .feature-card {
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: all 0.3s;
+      height: 100%;
+    }
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <section class="hero-section text-center">
+    <div class="container">
+      <h1 class="display-4 fw-bold mb-4">Employee Attendance System</h1>
+      <p class="lead mb-5">Streamline your workforce management with our powerful HRM solution</p>
+      <a href="/download-app" class="btn app-download-btn btn-lg">
+        <i class="bi bi-download"></i> Download Mobile App
+      </a>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card feature-card p-4">
+          <div class="card-body text-center">
+            <i class="bi bi-clock-history fs-1 text-primary mb-3"></i>
+            <h3>Real-time Tracking</h3>
+            <p>Monitor employee attendance in real-time with GPS verification</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card feature-card p-4">
+          <div class="card-body text-center">
+            <i class="bi bi-graph-up fs-1 text-primary mb-3"></i>
+            <h3>Comprehensive Reports</h3>
+            <p>Generate detailed attendance reports with just one click</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card feature-card p-4">
+          <div class="card-body text-center">
+            <i class="bi bi-shield-lock fs-1 text-primary mb-3"></i>
+            <h3>Secure Access</h3>
+            <p>Enterprise-grade security for all your HR data</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Access Section -->
+  <div class="container mt-5 text-center">
+    <div class="card border-0 shadow-sm p-4 mx-auto" style="max-width: 500px;">
+      <h3 class="mb-4">Administrator Access</h3>
+      <p>Manage employee records, generate reports, and configure system settings</p>
+      <a href="/login" class="btn btn-primary btn-lg w-100">
+        <i class="bi bi-lock"></i> Admin Login
+      </a>
+    </div>
+  </div>
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+</body>
+</html>

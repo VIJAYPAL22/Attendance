@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+{% block title %} Attendance Time {% endblock %}
+{% block style %}<style>
+       
+
+        .card {
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(44, 62, 80, 0.10);
+        }
+
+        .card-header {
+            background: #3498db;
+            color: #fff;
+            border-radius: 18px 18px 0 0;
+            font-weight: bold;
+            letter-spacing: 1px;
+            font-size: 1.7rem;
+        }
+
+        .table {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .table thead th {
+            background: #3498db !important;
+            color: #fff !important;
+            font-weight: bold;
+            font-size: 1.08rem;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #3498db;
+            padding: 1rem 1.25rem !important;
+        }
+
+        .table tbody td {
+            font-weight: 600;
+            font-size: 1.01rem;
+            vertical-align: middle;
+            padding: 1rem 1.25rem !important;
+        }
+
+        .badge.bg-success {
+            background: #43aa8b !important;
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 0.6em 1.2em;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4em;
+        }
+
+        .badge.bg-danger {
+            background: #ef476f !important;
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 0.6em 1.2em;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4em;
+        }
+
+        .btn-success {
+            border-radius: 20px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            font-size: 1.1rem;
+            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.08);
+        }
+
+        .btn-success:hover,
+        .btn-success:focus {
+            background: #2779bd !important;
+            color: #fff !important;
+            box-shadow: 0 4px 16px rgba(52, 152, 219, 0.18);
+            transform: translateY(-2px) scale(1.03);
+            transition: all 0.15s;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: #e0f7fa !important;
+        }
+    </style> {% endblock %}
+
+{% block heading %} Attendance time {% endblock %}
+
+{% block content %}
+ <div class="container mt-5 " style="margin-left: 70px">
+        <div class="card shadow-lg">
+             <div class="text-left mt-4 mb-3">
+                    <a href="{{ url_for('employee.employees') }}" class="btn  px-4">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </a>
+                </div>
+            <div class="card-header text-center">
+                <i class="fas fa-calendar-check"></i>
+                Attendance Time <span title="Attendance Overview" style="font-size:1.3rem;">🕒</span>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover align-middle text-center table-responsive">
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-hashtag"></i> S.No</th>
+                                <th><i class="fas fa-user"></i> Employee Name</th>
+                                <th><i class="fas fa-clock"></i> Attendance Time</th>
+                                <th><i class="fas fa-calendar-day"></i> Attendance Date</th>
+                                <th><i class="fas fa-info-circle"></i> Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for record in records %}
+                            <tr>
+                                <td>{{loop.index }}</td>
+                                <td>{{ record.name }}</td>
+                                <td>{{ record.time }}</td>
+                                <td>{{ record.today_date }}</td>
+                                <td>
+                                    <span class="badge {% if record.status == 'Check-in' %}bg-success{% else %}bg-danger{% endif %}">
+                                        {% if record.status == 'Check-in' %}
+                                            <i class="fas fa-sign-in-alt" title="Checked In"></i> {{ record.status }}
+                                        {% else %}
+                                            <i class="fas fa-sign-out-alt" title="Checked Out"></i> {{ record.status }}
+                                        {% endif %}
+                                    </span>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+{% endblock %}
