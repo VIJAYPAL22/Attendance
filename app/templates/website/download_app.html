@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Added for responsiveness -->
+  <title>Download HRM App</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.5/dist/cosmo/bootstrap.min.css">
+  <style>
+    .download-section {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+    }
+    .app-platform-card {
+      border: none;
+      border-radius: 15px;
+      padding: 2rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: all 0.3s;
+      height: 100%;
+    }
+    .app-platform-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    .platform-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    @media (max-width: 991.98px) {
+      .download-section {
+        min-height: unset;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+      }
+      .app-platform-card {
+        padding: 1.2rem;
+      }
+    }
+    @media (max-width: 575.98px) {
+      .display-4 {
+        font-size: 1.5rem;
+      }
+      .app-platform-card {
+        padding: 0.7rem;
+      }
+      .platform-icon {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container download-section">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 text-center">
+        <h1 class="display-4 fw-bold mb-5">Download Our Mobile App</h1>
+        
+        <div class="row g-4">
+          <div class="col-md-6">
+            <div class="app-platform-card">
+              <i class="bi bi-phone platform-icon text-primary"></i>
+              <h3>Android Version</h3>
+              <p class="mb-4">Compatible with Android 9.0 and above</p>
+              <a href="{{ android_app_url }}" class="btn btn-primary btn-lg">
+                <i class="bi bi-download"></i> Download APK
+              </a>
+              <p class="small mt-2">Or get it on <a href="#">Google Play</a></p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="app-platform-card">
+              <i class="bi bi-phone platform-icon text-primary"></i>
+              <h3>iOS Version</h3>
+              <p class="mb-4">Requires iOS 14.0 or later</p>
+              <a href="{{ ios_app_url }}" class="btn btn-primary btn-lg">
+                <i class="bi bi-download"></i> App Store
+              </a>
+              <p class="small mt-2">Coming soon to the App Store</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-5">
+          <a href="/website" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Back to Home
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+</body>
+</html>

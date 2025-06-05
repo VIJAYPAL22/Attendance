@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block title %}Add Employee{% endblock %}
+
+{% block heading %}Add employee{% endblock %}
+{% block content %}
+<style>
+@media (max-width: 900px) {
+    .main-content {
+        margin: 10px 5px 0px 5px !important;
+        padding: 5px !important;
+    }
+    .form {
+        margin-right: 0 !important;
+    }
+    .row {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+    .modal-footer {
+        padding: 0.5rem !important;
+    }
+}
+@media (max-width: 600px) {
+    .main-content {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    .form {
+        padding: 0.5rem !important;
+    }
+    .form-label, .form-control, .form-select {
+        font-size: 0.95rem !important;
+    }
+}
+</style>
+<div class="main-content m-0 ">
+    <form method="POST" action="/add_employee">
+       
+            <div class="text-center my-4"></div>
+                <h2 class="fw-bold display-10" style="font-family: 'Segoe UI', 'Arial', sans-serif;">
+                    Add New Employee
+                </h2>
+            </div>
+
+            <div class="form" style="margin-right: 35px;">
+                <div class="row">
+                    <div class="mb-3 col-6">
+                        <label for="emp_id" class="form-label"><i class="fas fa-id-badge me-1"></i>Employee ID</label>
+                        <input type="text" class="form-control" id="emp_id" name="emp_id" required>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label for="name" class="form-label"><i class="fas fa-user me-1"></i>Full Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label for="f_name" class="form-label"><i class="fas fa-user-friends me-1"></i>Father's
+                            Name</label>
+                        <input type="text" class="form-control" id="f_name" name="f_name" required>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label for="phone" class="form-label"><i class="fas fa-phone me-1"></i>Phone Number</label>
+                        <input type="text" class="form-control" id="phone" name="phone" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label"><i
+                                class="fas fa-map-marker-alt me-1"></i>Address</label>
+                        <input type="text" class="form-control" id="address" name="address" required>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label for="dob" class="form-label"><i class="fas fa-birthday-cake me-1"></i>Date of
+                            Birth</label>
+                        <input type="date" class="form-control" id="dob" name="dob" required>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label for="joining_date" class="form-label"><i class="fas fa-calendar-plus me-1"></i>Date of
+                            Joining</label>
+                        <input type="date" class="form-control" id="joining_date" name="joining_date" required>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label for="gender" class="form-label"><i class="fas fa-venus-mars me-1"></i>Gender</label>
+                        <select class="form-select" name="gender" id="gender" required>
+                            <option value="male">👨 Male</option>
+                            <option value="female">👩 Female</option>
+                            <option value="other">⚧️ Other</option>
+                        </select>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label for="job_status" class="form-label"><i class="fas fa-briefcase me-1"></i>Status</label>
+                        <select class="form-select" name="job_status" id="job_status" required>
+                            <option value="active">🟢 Active</option>
+                            <option value="inactive">⚪ Inactive</option>
+                            <option value="leave">🌴 Leave</option>
+                            <option value="suspended">⛔ Suspended</option>
+                            <option value="resigned">🚪 Resigned</option>
+                            <option value="terminated">❌ Terminated</option>
+                            <option value="retired">🎉 Retired</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label"><i class="fas fa-envelope me-1"></i>Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label for="department" class="form-label"><i
+                                class="fas fa-building me-1"></i>Department</label>
+                        <input type="text" class="form-control" id="department" name="department" required>
+                    </div>
+                    <div class="mb-3 col-6">
+                        <label for="position" class="form-label"><i class="fas fa-user-tie me-1"></i>Position</label>
+                        <input type="text" class="form-control" id="position" name="position" required>
+                    </div>
+                </div>
+                 <div class="modal-footer">
+                <button type="submit" style="background-color: #3F7B00;" class="btn  text-white">Save Employee</button>
+
+            </div>
+            </div>
+           
+        
+    </form>
+</div>
+{% endblock %}

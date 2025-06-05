@@ -1,0 +1,58 @@
+{% extends "base.html"%}
+
+{% block title %} Leaves {% endblock%}
+{% block heading %} Add Leaves {% endblock %}
+
+{% block content %} 
+
+<style>
+@media (max-width: 600px) {
+    .card.shadow-lg.mx-auto {
+        max-width: 98vw !important;
+        padding: 0.5rem !important;
+    }
+    .card-header.text-center.bg-primary.text-white h2 {
+        font-size: 1.2rem;
+    }
+    .form-label, .form-control, .form-select, textarea {
+        font-size: 0.95rem !important;
+    }
+}
+</style>
+
+<div class="container mt-5">
+    <div class="card shadow-lg mx-auto" style="max-width: 600px;">
+        <div class="card-header text-center bg-primary text-white">
+            <h2><i class="fas fa-plane-departure"></i> Leave Application</h2>
+        </div>
+        <div class="card-body bg-white">
+            <div class="alert alert-danger d-none" id="alert" role="alert">
+                ❗ Please check your input!
+            </div>
+            <form method="POST" action="/leaves">
+                <label for="emp_id" class="form-label"><i class="fas fa-id-badge me-1"></i><b>Employee ID</b></label>
+                <input type="number" class="form-control" id="emp_id" name="emp_id" required placeholder="Enter Employee ID" onblur="validateEmpId()">
+                <div id="empIdFeedback" class="mt-2"></div>
+                
+                <label class="form-label mb-3" for="leave_type"><i class="fas fa-list me-1"></i><b>Leave Type</b></label>
+                <select name="leave_type" id="leave_type" class="form-select mb-3" required>
+                    <option value="sick">🤒 Sick Leave</option>
+                    <option value="vacation">🏖️ Vacation Leave</option>
+                    <option value="personal">📝 Personal Leave</option>
+                </select>
+                <label for="start_date" class="form-label mb-3"><i class="fas fa-calendar-day me-1"></i><b>Start Date</b></label>
+                <input type="date" class="form-control" name="start_date" id="start_date" required>
+                <label for="end_date" class="form-label"><i class="fas fa-calendar-day me-1"></i><b>End Date</b></label>
+                <input type="date" class="form-control" name="end_date" id="end_date" required>
+                <label for="reason" class="form-label mt-3"><i class="fas fa-comment-dots me-1"></i><b>Reason</b></label>
+                <textarea name="reason" id="reason" class="form-control mt-0" rows="4" required></textarea>
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-success px-4"><i class="fas fa-paper-plane"></i> Submit</button>
+                   
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock%}

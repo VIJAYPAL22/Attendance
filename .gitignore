@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+
+# Virtual environments
+env/
+venv/
+ENV/
+.venv/
+.ENV/
+
+# Environment variables
+.env
+*.env
+
+# VSCode
+.vscode/
+
+# PyCharm
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Migrations
+migrations/__pycache__/
+migrations/*.pyc
+
+# Logs
+*.log
+
+# Compiled files
+*.so
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Static build artifacts
+staticfiles/
+dist/
+build/
+
+# Database
+*.db
+
+# Backup files
+*~

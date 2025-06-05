@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>HRM Attendance</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.5/dist/cosmo/bootstrap.min.css">
+  <style>
+    :root {
+      --primary-color: #4e73df;
+      --success-color: #1cc88a;
+      --danger-color: #e74a3b;
+    }
+    body {
+      background-color: #f8f9fc;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .attendance-card {
+      border-radius: 15px;
+      border: none;
+      box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+    }
+    #clock {
+      font-size: 3.5rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+    #date {
+      font-size: 1.2rem;
+      color: #6c757d;
+    }
+    .btn-attendance {
+      border-radius: 50px;
+      padding: 15px 0;
+      font-weight: 600;
+      letter-spacing: 1px;
+      border: none;
+      width: 100%;
+      transition: all 0.3s;
+    }
+    .btn-attendance:active {
+      transform: scale(0.98);
+    }
+    .btn-checkin {
+      background: var(--success-color);
+    }
+    .btn-checkout {
+      background: var(--danger-color);
+    }
+    .btn-leave {
+      background: var(--primary-color);
+    }
+    .employee-info {
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 0.15rem 0.5rem 0 rgba(0,0,0,0.1);
+    }
+    .toast-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1100;
+    }
+    @media (max-width: 576px) {
+      .container {
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+        max-width: 100vw !important;
+      }
+      #clock {
+        font-size: 2.2rem;
+      }
+      .attendance-card {
+        padding: 0.5rem !important;
+      }
+      .card-body.p-4 {
+        padding: 1rem !important;
+      }
+      .employee-info {
+        padding: 8px;
+      }
+    }
+    @media (max-width: 400px) {
+      #clock {
+        font-size: 1.3rem;
+      }
+      .attendance-card {
+        padding: 0.2rem !important;
+      }
+    }
+  </style>
+</head>
+<body class="d-flex flex-column min-vh-100">
+ 
+  <!-- Flash Messages -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="toast-container">
+        {% for category, message in messages %}
+          <div class="toast show align-items-center text-white bg-{{ category }} border-0" role="alert">
+            <div class="d-flex">
+              <div class="toast-body">
+                {{ message }}
+              </div>
+              <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
+
+  <div class="container my-auto py-4">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <!-- Time Display -->
+        <div class="text-center mb-4">
+          <div id="clock" class="text-primary"></div>
+          <div id="date" class="mb-4"></div>
+        </div>
+        
+        <!-- Attendance Card -->
+        <div class="card attendance-card mb-4">
+          <div class="card-body p-4">
+            <form method="POST" action="/mark" id="attendanceForm">
+              <!-- Employee ID Input -->
+              <div class="mb-3">
+                <label for="emp_id" class="form-label fw-bold">Employee ID</label>
+                <input type="text" class="form-control form-control-lg" id="emp_id" name="emp_id" 
+                       placeholder="Enter your ID" required autocomplete="off">
+              </div>
+
+              <!-- Verification Code Input -->
+              <div class="mb-3">
+                <label for="verification_code" class="form-label fw-bold">Verification Code</label>
+                <input type="text" class="form-control form-control-lg" id="verification_code" name="verification_code"
+                       placeholder="Enter 6-digit code" pattern="\d{6}" maxlength="6" required autocomplete="off">
+                <small class="form-text text-muted">Check your email for the 6-digit code. <a href="#" id="resendCodeLink">Resend?</a></small>
+              </div>
+              
+              <!-- Employee Info (auto-filled) -->
+              <div class="employee-info d-none" id="employeeInfo">
+                <div class="row">
+                  <div class="col-6">
+                    <p class="mb-1 small text-muted">Name</p>
+                    <p class="fw-bold" id="emp_name"></p>
+                  </div>
+                  <div class="col-6">
+                    <p class="mb-1 small text-muted">Department</p>
+                    <p class="fw-bold" id="emp_dept"></p>
+                  </div>
+                </div>
+                <input type="hidden" id="latitude" name="latitude">
+                <input type="hidden" id="longitude" name="longitude">
+                <input type="hidden" name="status" id="status">
+              </div>
+              
+              <!-- Action Buttons -->
+              <div class="d-grid gap-3 mt-4">
+                <button type="submit" class="btn btn-attendance btn-checkin text-white" 
+                        onclick="document.getElementById('status').value='Check-in'">
+                  CHECK IN
+                </button>
+                <!-- <button type="button" class="btn btn-attendance btn-leave text-white" 
+                        data-bs-toggle="modal" data-bs-target="#leaveModal">
+                  REQUEST LEAVE
+                </button> -->
+                <button type="submit" class="btn btn-attendance btn-checkout text-white" 
+                        onclick="document.getElementById('status').value='Check-out'">
+                  CHECK OUT
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+        
+        <p class="text-center text-muted small">
+          Last sync: <span id="lastSync"></span>
+        </p>
+      </div>
+    </div>
+  </div>
+<!-- Leave Application Modal -->
+<!-- <div class="modal fade" id="leaveModal" tabindex="-1" aria-labelledby="leaveModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="leaveModalLabel">Leave Application</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="/leaves">
+          <div class="mb-3">
+            <label for="emp_id" class="form-label"><b>Employee ID</b></label>
+            <input type="number" class="form-control" id="emp_id" name="emp_id" required placeholder="Enter Employee ID">
+            <div id="error" class="mt-2 text-danger fw-bold"></div>
+          </div>
+
+          <div class="mb-3">
+            <label for="leave_type" class="form-label"><b>Leave Type</b></label>
+            <select name="leave_type" id="leave_type" class="form-select" required>
+              <option value="sick">Sick Leave</option>
+              <option value="vacation">Vacation Leave</option>
+              <option value="personal">Personal Leave</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="start_date" class="form-label"><b>Start Date</b></label>
+            <input type="date" class="form-control" name="start_date" id="start_date" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="end_date" class="form-label"><b>End Date</b></label>
+            <input type="date" class="form-control" name="end_date" id="end_date" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="reason" class="form-label"><b>Reason</b></label>
+            <textarea name="reason" id="reason" class="form-control" rows="3" required></textarea>
+          </div>
+
+          <div class="text-end">
+            <button type="submit" class="btn btn-success"><b>Submit</b></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+  <!-- Footer -->
+  <footer class="text-center py-3 small text-muted">
+    HRM Attendance System v1.0
+  </footer>
+
+  <!-- Leave Modal (Same as your existing one)
+  <div class="modal fade" id="leaveModal" tabindex="-1" aria-labelledby="leaveModalLabel" aria-hidden="true">
+     Your existing leave modal content here 
+  </div> -->
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const startDateInput = document.getElementById('start_date');
+    const endDateInput = document.getElementById('end_date');
+    const today = new Date().toISOString().split('T')[0];
+    startDateInput.min = today;
+    startDateInput.value = today;
+    endDateInput.min = today;
+
+    startDateInput.addEventListener('change', function () {
+      endDateInput.min = startDateInput.value;
+      if (endDateInput.value < startDateInput.value) {
+        endDateInput.value = startDateInput.value;
+      }
+    });
+  });
+</script> -->
+<!-- <script>
+document.getElementById('emp_id').addEventListener('blur', function() {
+  const empId = this.value;
+  if (!empId) return;
+  
+  fetch(`/validate_leave_id/${empId}`)
+    .then(response => response.json())
+    .then(data => {
+      const feedback = document.getElementById('empIdFeedback');
+      if (data.exists) {
+        feedback.textContent = 'Valid Employee ID';
+        feedback.className = 'valid-feedback d-block';
+      } else {
+        feedback.textContent = 'Invalid Employee ID';
+        feedback.className = 'invalid-feedback d-block';
+      }
+    });
+});
+</script> -->
+<script>
+  // Update clock in real-time
+  function updateClock() {
+    const now = new Date();
+    document.getElementById('clock').textContent =
+      now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    document.getElementById('date').textContent =
+      now.toLocaleDateString([], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    document.getElementById('lastSync').textContent =
+      now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  }
+  setInterval(updateClock, 1000);
+  updateClock();
+
+  // Employee ID validation
+  document.getElementById('emp_id').addEventListener('input', function() {
+    const empId = this.value.trim();
+    const employeeInfo = document.getElementById('employeeInfo');
+    if (empId.length >= 3) {
+      fetch(`/validate_id/${empId}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.exists) {
+            document.getElementById('emp_name').textContent = data.name;
+            document.getElementById('emp_dept').textContent = data.department;
+            employeeInfo.classList.remove('d-none');
+          } else {
+            employeeInfo.classList.add('d-none');
+          }
+        });
+    } else {
+      employeeInfo.classList.add('d-none');
+    }
+  });
+
+  // Geolocation for attendance
+  document.getElementById("attendanceForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    if (!navigator.geolocation) {
+      alert("Geolocation is not supported by your browser.");
+      e.target.submit();
+      return;
+    }
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        document.getElementById("latitude").value = position.coords.latitude;
+        document.getElementById("longitude").value = position.coords.longitude;
+        e.target.submit();
+      },
+      (error) => {
+        console.error("Geolocation error:", error);
+        if (confirm("Location access is required for attendance. Try again?")) {
+          return false;
+        }
+        e.target.submit();
+      },
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 }
+    );
+  });
+
+  // Resend code functionality
+  document.getElementById('resendCodeLink').addEventListener('click', function(e) {
+    e.preventDefault();
+    const empId = document.getElementById('emp_id').value.trim();
+    if (!empId) {
+      alert('Please enter your Employee ID first.');
+      return;
+    }
+    fetch('/resend_code', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `emp_id=${encodeURIComponent(empId)}`
+    })
+    .then(response => response.text())
+    .then(() => {
+      alert('A new verification code has been sent to your email.');
+    })
+    .catch(() => {
+      alert('Failed to resend code. Please try again.');
+    });
+  });
+
+  // Auto-dismiss flash messages
+  setTimeout(() => {
+    const alerts = document.querySelectorAll('.toast');
+    alerts.forEach(alert => {
+      const bsAlert = new bootstrap.Toast(alert);
+      bsAlert.hide();
+    });
+  }, 5000);
+
+  // // Redirect to /leaves when "REQUEST LEAVE" is clicked
+  // document.querySelector('.btn-leave').addEventListener('click', function(e) {
+  //   e.preventDefault();
+  //   window.location.href = '/leaves';
+  // });
+</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Added for responsiveness -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.5/dist/cosmo/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: #f8f9fa;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        .login-card {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 4px 24px rgba(44,62,80,0.10);
+            padding: 2.5rem 2rem 2rem 2rem;
+            max-width: 400px;
+            margin: 4rem auto;
+        }
+        .login-title {
+            font-weight: bold;
+            color: #3498db;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+        }
+        .form-control {
+            border-radius: 16px;
+            font-weight: 500;
+            border: 1.5px solid #3498db;
+            box-shadow: none;
+            margin-bottom: 1.2rem;
+        }
+        .form-control:focus {
+            border-color: #2c3e50;
+            box-shadow: 0 0 0 0.1rem #3498db33;
+        }
+        .btn-success, .btn-secondary {
+            border-radius: 20px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            padding: 0.6rem 2.2rem;
+            font-size: 1.1rem;
+            margin: 0.2rem 0.3rem;
+        }
+        .fa-user-shield {
+            color: #3498db;
+            margin-right: 10px;
+        }
+        .flash-message {
+            color: #e74c3c;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        @media (max-width: 500px) {
+            .login-card {
+                max-width: 98vw;
+                padding: 1.2rem 0.5rem 1rem 0.5rem;
+                margin: 2rem auto;
+            }
+            .btn-success, .btn-secondary {
+                width: 100%;
+                margin: 0.2rem 0 0.2rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-card text-center">
+        <h2 class="login-title"><i class="fas fa-user-shield"></i>Admin Login</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="flash-message">{{ message }}</div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        <form method="POST">
+            <input type="password" class="form-control" name="secret_key" placeholder="🔑 Enter secret key" required>
+            <button  type="submit" class="btn btn-success"><i class="fas fa-sign-in-alt"></i> Login</button>
+            <a href="/" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back</a>
+        </form>
+    </div>
+</body>
+</html>

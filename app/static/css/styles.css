@@ -1,0 +1,201 @@
+body {
+    /* Add a beautiful Unsplash background image with a soft overlay */
+    background-color: rgb(219, 238, 255);
+}
+
+.dashboard-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+    margin-top: 30px;
+    /* width:275px; */
+
+}
+
+.stat-card {
+    text-align: center;
+    color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+
+
+}
+
+.chart-container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    /* Ensure symmetry with dashboard-card  */
+
+
+    max-width: 850px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.nav {
+    margin-top: 10px;
+}
+
+.navbar-title {
+    margin-left: 95px;
+    color: #222;
+    font-weight: 600;
+    letter-spacing: 1px;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    display: flex;
+    align-items: center;
+    height: 60px;
+    font-size: 1.5rem;
+}
+
+.sidebar {
+    position: fixed;
+    margin-top: 75.96px;
+    top: 0;
+    left: 0;
+    width: 230px;
+    height: 100%;
+    /* margin-top: 50px; */
+    background-color: #ffffff;
+    padding: 20px;
+    color: rgb(21, 20, 20);
+}
+
+.main-content {
+    margin-left: 270px;
+    padding: 20px;
+}
+
+.btn {
+    color: #000000;
+    border-radius: 15px;
+
+
+
+}
+
+.fa-users {
+    /* text-shadow:rgb(30, 94, 254); */
+
+    /* margin-right: 10px; */
+    margin-left: 0px;
+}
+td a:hover,
+td form.d-inline button.btn:hover {
+    background-color: rgb(30, 94, 254) !important;
+    color: whitesmoke !important;
+    transition: background 0.2s, color 0.2s;
+    border-radius: 5px;
+    padding: 2px 6px;
+}
+
+/* .nav>a:hover{
+    background-color: rgb(30, 94, 254);
+    color: whitesmoke;
+} */
+.act{
+    background-color: rgb(30, 94, 254);
+    color: whitesmoke;
+}
+
+
+.box {
+    background: white;
+    width: 1450px;
+    padding: 50px 70px 70px 70px;
+    border-radius: 20px;
+    margin-left: -95px;
+    /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); */
+
+}
+
+.vertical-navbar {
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    margin-left: 20px;
+}
+
+.nav>a {
+    text-align: left;
+}
+
+.navbar {
+
+    background-color: #ffffff;
+    position: -webkit-sticky;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .container-fluid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.navbar .btn.link {
+    color: #333;
+    /* Change to your preferred color */
+    text-decoration: none;
+    transition: color 0.3s;
+    background-color: #007bff;
+    /* Change to your preferred hover color */
+    color: whitesmoke;
+    border-radius: 50px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    margin: 0px 60px 0px 0px
+}
+
+.form-control {
+    margin-right: 40px;
+}
+
+/* body {
+            background-color: #b3d4f5;
+        } */
+
+@media (max-width: 900px) {
+    .sidebar {
+        position: static;
+        width: 100vw;
+        height: auto;
+        margin-top: 0;
+        padding: 10px;
+    }
+    .main-content {
+        margin-left: 0 !important;
+        padding: 10px !important;
+    }
+    .box {
+        width: 100vw !important;
+        margin-left: 0 !important;
+        padding: 10px 2px 20px 2px !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .sidebar {
+        padding: 5px;
+    }
+    .main-content {
+        margin-left: 0 !important;
+        padding: 2px !important;
+    }
+    .box {
+        padding: 2px !important;
+    }
+    .navbar-title {
+        margin-left: 10px !important;
+        font-size: 1.1rem !important;
+    }
+}
