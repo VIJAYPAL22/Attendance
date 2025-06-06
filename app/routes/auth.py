@@ -66,12 +66,11 @@ def login():
             session['logged_in'] = True
             valid_login = True
             if valid_login:
-                return render_template('login.html', next_url=url_for('attendance.view_attendance'))
-                # # For mobile, redirect to attendance page
-                # if request.user_agent.platform in ['android', 'iphone']:
-                #     return render_template('login.html', next_url=url_for('attendance.mobile_attendance'))
-                # else:
-                #     return redirect(url_for('attendance.view_attendance'))
+                # For mobile, redirect to attendance page
+                if request.user_agent.platform in ['android', 'iphone']:
+                    return render_template('login.html', next_url=url_for('attendance.mobile_attendance'))
+                else:
+                    return redirect(url_for('attendance.view_attendance'))
         else:
             flash('Invalid Key', 'danger')
             return render_template('login.html')
